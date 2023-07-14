@@ -1,12 +1,98 @@
+.container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
-/* 
+.title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
 
-    You can write your own styles here...
-    
-    
-    ...Or you can use the import command to include 
-    other sylesheets into your bunde as well, e.j:
-    
-    import 'relative/path/to/stylesheet.scss';
+.input-task {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
 
-*/
+.add-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-button:hover {
+  background-color: #45a049;
+}
+
+.task-list {
+  list-style-type: none;
+  padding: 0;
+  font-size: 18px;
+}
+
+.empty-task {
+  text-align: center;
+  margin-top: 20px;
+  font-style: italic;
+  color: #888;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.task-text {
+  flex-grow: 1;
+  font-size: 18px;
+  text-align: left;
+  padding-left: 15px;
+  padding-top: 15px;
+}
+
+.remove-button {
+  opacity: 0;
+  color: red;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.task-item:hover .remove-button {
+  opacity: 1;
+}
+
+.task-counter {
+  text-align: right;
+  font-size: 14px;
+  color: #888;
+  margin-top: 10px;
+}
+
+.task-item.completed .task-text {
+  text-decoration: line-through;
+  color: gray;
+}
+
+.task-checkbox.checked i {
+  color: green;
+}

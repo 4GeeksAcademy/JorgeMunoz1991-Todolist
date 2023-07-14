@@ -1,21 +1,29 @@
 import React, { useState } from 'react';
 
-function TodoList() {
+const TodoList = () => {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState('');
 
   const addTask = () => {
     if (newTask.trim() !== '') {
-      setTasks([...tasks, newTask]);
+      setTasks([...tasks, { text: newTask, completed: false }]);
       setNewTask('');
     }
   };
 
   const handleSubmit = (e) => {
-    setTasks([...tasks, e.target[0].value])
-    e.preventDefault()
-    console.log(e)
-  }
+    e.preventDefault();
+    if (newTask.trim() !== '') {
+      setTasks([...tasks, { text: newTask, completed: false }]);
+      setNewTask('');
+    }
+  };
+
+  const toggleTaskCompletion = (index) => {
+    const updatedTasks = [...tasks];
+    updatedTasks[index].completed = !updatedTasks[index].completed;
+    setTasks(updatedTasks);
+  };
 
   const removeTask = (index) => {
     const updatedTasks = [...tasks];
@@ -24,32 +32,62 @@ function TodoList() {
   };
 
   return (
-    <div>
-      <h1>Lista de Tareas</h1>
-    <form onSubmit={handleSubmit}>
+    <div className="container">
+      <h1 className="title">Lista de Tareas</h1>
+      <form onSubmit={handleSubmit}>
         <input
-            type="text"
-            value={newTask}
-            onChange={(e) => setNewTask(e.target.value)}
-            placeholder="Ingrese una tarea"
+          type="text"
+          value={newTask}
+          onChange={(e) => setNewTask(e.target.value)}
+          className="input-task"
+          placeholder="Ingrese una tarea"
         />
-    </form>
-      <button onClick={addTask}>Agregar</button>
+        <button className="add-button">Agregar</button>
+      </form>
 
-      <ul>
+      <ul className="task-list">
         {tasks.length === 0 ? (
-          <li>No hay tareas, añadir tareas.</li>
+          <li className="empty-task">No hay tareas, añadir tareas.</li>
         ) : (
           tasks.map((task, index) => (
-            <li key={index}>
-              {task}
-              <button onClick={() => removeTask(index)}>Eliminar</button>
+            <li
+              key={index}
+              className={`task-item ${task.completed ? 'completed' : ''}`}
+              onClick={() => toggleTaskCompletion(index)}
+            >
+              <span className={`task-text ${task.completed ? 'completed' : ''}`}>
+                {task.text}
+              </span>
+              <span
+                className={`task-checkbox ${task.completed ? 'checked' : ''}`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleTaskCompletion(index);
+                }}
+              >
+                {task.completed && <i className="fas fa-check"></i>}
+              </span>
+              <span
+                className="remove-button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  removeTask(index);
+                }}
+              >
+                X
+              </span>
             </li>
           ))
         )}
       </ul>
+
+      {tasks.length > 0 && (
+        <p className="task-counter">
+          {tasks.filter((task) => !task.completed).length} item left
+        </p>
+      )}
     </div>
   );
-}
+};
 
 export default TodoList;
