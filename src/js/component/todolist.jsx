@@ -33,21 +33,21 @@ const TodoList = () => {
 
   return (
     <div className="container">
-      <h1 className="title">Lista de Tareas</h1>
+      <h1 className="title">To do list</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
           value={newTask}
           onChange={(e) => setNewTask(e.target.value)}
           className="input-task"
-          placeholder="Ingrese una tarea"
+          placeholder="Add a task"
         />
-        <button className="add-button">Agregar</button>
+        <button className="add-button">Add</button>
       </form>
 
       <ul className="task-list">
         {tasks.length === 0 ? (
-          <li className="empty-task">No hay tareas, añadir tareas.</li>
+          <li className="empty-task">no tasks, add one</li>
         ) : (
           tasks.map((task, index) => (
             <li
